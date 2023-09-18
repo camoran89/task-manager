@@ -1,0 +1,11 @@
+<form [formGroup]="form">
+  <phone-field [config]="phoneConfig" formControlName="phone" (error)="onError($event, 'phone')"></phone-field>
+  <number-field [config]="idConfig" formControlName="id" (error)="onError($event, 'id')"></number-field>
+  <date-field [config]="bdConfig" formArrayName="bd" (error)="onError($event, 'bd')"></date-field>
+  <text-field [config]="commentsConfig" formControlName="comments" (error)="onError($event, 'comments')"></text-field>
+  <email-field [config]="emailConfig" formControlName="email" (error)="onError($event, 'email')"></email-field>
+  <input-field [config]="userConfig" formControlName="username" (error)="onError($event, 'username')"></input-field>
+  <password-field [config]="passConfig" formControlName="password" (error)="onError($event, 'password')"></password-field>
+  <button class="btn btn-success" (click)="onSave()" [disabled]="hasError">Send</button>
+  <button class="btn btn-danger" (click)="onReset()">Clear</button>
+</form>

@@ -1,0 +1,42 @@
+<div class="py-1">
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>{{ config.label }}</mat-label>
+    <input matInput [id]="id" type="text" [value]="value" [disabled]="config.disabled" [minLength]="config.min"
+      [maxLength]="config.max" [placeholder]="config.placeholder" (input)="onInputChange($event)"
+      [required]="config.required" />
+  </mat-form-field>
+  <div *ngIf="isRequired" class="mt-md-n3">
+    <ul class="smaller">
+      <li *ngIf="requiredError" class="d-flex" [style.color]="!hasCharacters() ? 'red' : 'green'">
+        <mat-icon *ngIf="hasCharacters()">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="!hasCharacters()">error_outline</mat-icon>
+        <span class="px-2 align-self-center">{{ requiredError.description }}</span>
+      </li>
+      <li *ngIf="lengthError" class="d-flex" [style.color]="!hasRigthLength() ? 'red' : 'green'">
+        <mat-icon *ngIf="hasRigthLength()">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="!hasRigthLength()">error_outline</mat-icon>
+        <span class="px-2 align-self-center">{{ lengthError.description }}</span>
+      </li>
+      <li *ngIf="numberError" class="d-flex" [style.color]="!containsNumbers() ? 'red' : 'green'">
+        <mat-icon *ngIf="containsNumbers()">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="!containsNumbers()">error_outline</mat-icon>
+        <span class="px-2 align-self-center">{{ numberError.description }}</span>
+      </li>
+      <li *ngIf="uppercaseError" class="d-flex" [style.color]="!hasUppercaseCharacter() ? 'red' : 'green'">
+        <mat-icon *ngIf="hasUppercaseCharacter()">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="!hasUppercaseCharacter()">error_outline</mat-icon>
+        <span class="px-2 align-self-center">{{ uppercaseError.description }}</span>
+      </li>
+      <li *ngIf="lowercaseError" class="d-flex" [style.color]="!hasLowercaseCharacter() ? 'red' : 'green'">
+        <mat-icon *ngIf="hasLowercaseCharacter()">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="!hasLowercaseCharacter()">error_outline</mat-icon>
+        <span class="px-2 align-self-center">{{ lowercaseError.description }}</span>
+      </li>
+      <li *ngIf="specialCharError" class="d-flex" [style.color]="!hasSpecialCharacter() ? 'red' : 'green'">
+        <mat-icon *ngIf="hasSpecialCharacter()">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="!hasSpecialCharacter()">error_outline</mat-icon>
+        <span class="px-2 align-self-center">{{ specialCharError.description }}</span>
+      </li>
+    </ul>
+  </div>
+</div>
