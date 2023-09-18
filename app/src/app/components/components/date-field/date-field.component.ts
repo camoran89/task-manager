@@ -30,6 +30,9 @@ export class DateFieldComponent implements ControlValueAccessor, OnInit {
   @Output()
   error: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  @Output()
+  date: EventEmitter<string> = new EventEmitter<string>();
+
   isRequired: boolean = false;
   isDisabled: boolean = false;
 
@@ -54,6 +57,7 @@ export class DateFieldComponent implements ControlValueAccessor, OnInit {
     this.dateError = this.config.notifications.find(x => x.type == NotificationTypes.date);
 
     this.error.emit(true);
+    this.date.emit('');
   }
 
   writeValue(value: string): void {
@@ -80,11 +84,13 @@ export class DateFieldComponent implements ControlValueAccessor, OnInit {
     var value = (event.target as HTMLInputElement).value;
     this.value = value;
     this.hasError();
+    this.date.emit(this.value);
   }
 
   onDateChange(value: string): void {
     this.value = value;
     this.hasError();
+    this.date.emit(this.value);
   }
 
   hasCharacters(): boolean {

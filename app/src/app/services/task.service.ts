@@ -21,7 +21,7 @@ export class TaskService {
   }
 
   findById(id: string): Observable<ITask> {
-    return this.http.get<ITask>(`${this.apiBaseUrl}${this.taskBaseUrl}/${id}`);
+    return this.http.get<ITask>(`${this.apiBaseUrl}${this.taskBaseUrl}${id}`);
   }
 
   create(task: ITask): Observable<ITask> {
@@ -29,10 +29,10 @@ export class TaskService {
   }
 
   update(id: string, task: ITask): Observable<ITask> {
-    return this.http.put<ITask>(`${this.apiBaseUrl}${this.taskBaseUrl}/${id}`, task);
+    return this.http.put<ITask>(`${this.apiBaseUrl}${this.taskBaseUrl}${id}`, task);
   }
 
   delete(id: string): Observable<ITask> {
-    return this.http.delete<ITask>(`${this.apiBaseUrl}${this.taskBaseUrl}/${id}`);
+    return this.http.delete<ITask>(`${this.apiBaseUrl}${this.taskBaseUrl}${id}`);
   }
 }

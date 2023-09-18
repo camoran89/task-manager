@@ -22,7 +22,7 @@ namespace TaskManager.Services
 
         TaskManagerModel ITaskManager.FindById(string id)
         {
-            return _collection.Find(x => x.Id == id).FirstOrDefault();
+            return _collection.Find(x => x.id == id).FirstOrDefault();
         }
 
         TaskManagerModel ITaskManager.Create(TaskManagerModel task)
@@ -33,12 +33,12 @@ namespace TaskManager.Services
 
         void ITaskManager.Update(string id, TaskManagerModel task)
         {
-            _collection.ReplaceOne(x => x.Id == id, task);
+            _collection.ReplaceOne(x => x.id == id, task);
         }
 
         void ITaskManager.Delete(string id)
         {
-            _collection.DeleteOne(x => x.Id == id);
+            _collection.DeleteOne(x => x.id == id);
         }
     }
 }

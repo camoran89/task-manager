@@ -5,16 +5,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ComponentsModule } from './components/components.module';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppComponent } from './app.component';
 import { ManagerComponent } from './manager/manager.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    TestComponent,
     ManagerComponent
   ],
   imports: [
@@ -25,7 +30,10 @@ import { ManagerComponent } from './manager/manager.component';
     BrowserAnimationsModule,
     ComponentsModule,
     HttpClientModule,
-    MatCardModule
+    MatCardModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatExpansionModule
   ],
   providers: [
 

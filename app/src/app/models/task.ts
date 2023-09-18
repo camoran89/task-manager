@@ -4,6 +4,7 @@ export interface ITask {
   title: string;
   description: string;
   category: string;
+  completed: boolean;
   finishDate: Date;
   createdAt: Date;
 }

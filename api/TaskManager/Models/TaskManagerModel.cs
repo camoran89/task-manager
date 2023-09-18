@@ -7,24 +7,27 @@ namespace TaskManager.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public String Id { get; set; } = String.Empty;
+        public String id { get; set; } = String.Empty;
 
         [BsonElement("userName")]
-        public string UserName { get; set; } = String.Empty;
+        public string userName { get; set; } = String.Empty;
 
         [BsonElement("title")]
-        public string Title { get; set; } = String.Empty;
+        public string title { get; set; } = String.Empty;
 
         [BsonElement("description")]
-        public string Description { get; set; } = String.Empty;
+        public string description { get; set; } = String.Empty;
 
         [BsonElement("category")]
-        public string Category { get; set; } = String.Empty;
+        public string category { get; set; } = String.Empty;
+
+        [BsonElement("completed")]
+        public bool completed { get; set; } = false;
 
         [BsonElement("finishDate")]
-        public DateTime FinishDate { get; set; } = DateTime.Now;
+        public DateTime finishDate { get; set; } = DateTime.Now;
 
         [BsonElement("createdAt")]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime createdAt { get; set; } = DateTime.Now;
     }
 }

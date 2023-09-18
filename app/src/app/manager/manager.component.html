@@ -1,15 +1,112 @@
-<article class="container">
+<article class="container-fluid py-4">
+  <h2 class="lead">Task Manager</h2>
   <section class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-9">
-      <mat-card *ngFor="let task of tasks">
-        <mat-card-header>
-          <mat-card-title>{{ task.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <p>{{ task.description }}</p>
-        </mat-card-content>
-      </mat-card>
+    <div class="col-4">
+      <button mat-raised-button color="primary" class="w-100 my-2" (click)="onOrder()">Order by category</button>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Add new task </mat-panel-title>
+            <mat-panel-description> You can add a new task </mat-panel-description>
+          </mat-expansion-panel-header>
+          <h4 class="fw-bolder">Fill the data</h4>
+          <form [formGroup]="form">
+            <input-field [config]="username" formControlName="username" (error)="onError($event, 'username')">
+            </input-field>
+            <input-field [config]="title" formControlName="title" (error)="onError($event, 'title')">
+            </input-field>
+            <text-field [config]="description" formControlName="description"
+              (error)="onError($event, 'description')"></text-field>
+            <input-field [config]="category" formControlName="category"
+              (error)="onError($event, 'category')"></input-field>
+            <date-field [config]="finishDate" formArrayName="finishDate"
+              (error)="onError($event, 'finishDate')" (date)="getDate($event)"></date-field>
+            <div class="d-flex justify-content-end">
+              <button mat-raised-button color="primary" class="w-100" (click)="onSave()">Save</button>
+              <button mat-raised-button color="warn" class="w-100" (click)="onReset()">Clear</button>
+            </div>
+          </form>
+        </mat-expansion-panel>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="col-4">
+      <h2 class="lead">Active</h2>
+      <div class="row row-cols-1 g-4">
+        <div class="col" *ngFor="let task of utasks">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ task.title }}</mat-card-title>
+              <mat-card-subtitle>
+                <div class="row">
+                  <div class="col-auto">
+                    User: {{ task.userName }}
+                  </div>
+                  <div class="col-auto">
+                    Category: {{ task.category }}
+                  </div>
+                </div>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-card-content>
+              <span class="h6 lead">Description</span>
+              <br />
+              <span>{{ task.description }}</span>
+              <br />
+              <br />
+              <span class="h6 lead">Finish at</span>
+              <br />
+              <span>{{ task.finishDate | date: 'MM/dd/YYYY' }}</span>
+            </mat-card-content>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-card-actions class="d-flex justify-content-end">
+              <button mat-raised-button (click)="onComplete(task)">Completed</button>
+              <button mat-raised-button color="primary">Edit</button>
+              <button mat-raised-button color="warn" (click)="onDelete(task.id, task.completed)">Delete</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <h2 class="lead">Completed</h2>
+      <div class="row row-cols-1 g-4">
+        <div class="col" *ngFor="let task of ctasks">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ task.title }}</mat-card-title>
+              <mat-card-subtitle>
+                <div class="row">
+                  <div class="col-auto">
+                    User: {{ task.userName }}
+                  </div>
+                  <div class="col-auto">
+                    Category: {{ task.category }}
+                  </div>
+                </div>
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-card-content>
+              <span class="h6 lead">Description</span>
+              <br />
+              <span>{{ task.description }}</span>
+              <br />
+              <br />
+              <span class="h6 lead">Finish at</span>
+              <br />
+              <span>{{ task.finishDate | date: 'MM/dd/YYYY' }}</span>
+            </mat-card-content>
+            <mat-divider class="my-2"></mat-divider>
+            <mat-card-actions class="d-flex justify-content-end">
+              <button mat-raised-button color="primary">Edit</button>
+              <button mat-raised-button color="warn" (click)="onDelete(task.id, task.completed)">Delete</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
     </div>
   </section>
 </article>

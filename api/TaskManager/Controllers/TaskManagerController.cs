@@ -33,7 +33,7 @@ namespace TaskManager.Controllers
         {
             _taskManager.Create(task);
 
-            return CreatedAtAction(nameof(FindById), new { id = task.Id }, task);
+            return CreatedAtAction(nameof(FindById), new { id = task.id }, task);
         }
 
         [HttpPut("{id}")]
