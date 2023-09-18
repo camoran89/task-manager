@@ -20,4 +20,4 @@ You can download Visual Studio 2022 using this URL https://visualstudio.microsof
 # Note:
 Remember you have to install mongoDb driver in your computer. You can use this URL to download it https://www.mongodb.com/try/download/community
 
-To run the complete application you must run the backend and then the frontend.
+To run the complete application you must run the firstly backend and then the frontend.
