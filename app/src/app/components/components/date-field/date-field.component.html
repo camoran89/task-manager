@@ -1,7 +1,7 @@
 <div class="py-1">
   <mat-form-field class="w-100" appearance="outline">
     <mat-label>{{ config.label }}</mat-label>
-    <input matInput #date [id]="id" type="text" [disabled]="config.disabled" [placeholder]="config.placeholder"
+    <input matInput #date [id]="id" [disabled]="config.disabled" [placeholder]="config.placeholder"
       (input)="onInputChange($event)" (dateChange)="onDateChange(date.value)" [required]="config.required"
       [matDatepicker]="picker" />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

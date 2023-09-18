@@ -18,6 +18,7 @@ import * as moment from 'moment';
 })
 export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  up: boolean = false;
   hasError: boolean = true;
   panelOpenState: boolean = false;
   save: boolean = true;
@@ -157,7 +158,7 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
         createdAt: new Date()
       };
 
-      if (this.save) {  
+      if (this.save) {
         this.taskService.create(task).subscribe(result => {
           this.utasks.push(task);
         });
@@ -181,7 +182,7 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
       } else {
         this.error[found].value = error;
       }
-  
+
       this.hasError = this.error.find(x => x.value == true) != undefined;
     }
   }
@@ -207,13 +208,25 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onOrder(): void {
-    this.utasks.sort((a, b) => {
-      return a.category > b.category ? 1 : a.category < b.category ? -1 : 0;
-    });
+    this.up = !this.up;
 
-    this.ctasks.sort((a, b) => {
-      return a.category > b.category ? 1 : a.category < b.category ? -1 : 0;
-    });
+    if (this.up) {
+      this.utasks.sort((a, b) => {
+        return a.category > b.category ? 1 : a.category < b.category ? -1 : 0;
+      });
+  
+      this.ctasks.sort((a, b) => {
+        return a.category > b.category ? 1 : a.category < b.category ? -1 : 0;
+      });
+    } else {
+      this.utasks.sort((a, b) => {
+        return a.category > b.category ? -1 : a.category < b.category ? 1 : 0;
+      });
+  
+      this.ctasks.sort((a, b) => {
+        return a.category > b.category ? -1 : a.category < b.category ? 1 : 0;
+      });
+    }
   }
 
   onUpdate(task: ITask): void {
@@ -221,7 +234,7 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
     this.panelOpenState = true;
 
     this.taskId = task.id;
-    
+
     this.form.get('username')?.setValue(task.userName);
     this.form.get('title')?.setValue(task.title);
     this.form.get('description')?.setValue(task.description);
@@ -230,6 +243,8 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
     let date = moment(task.finishDate).format('MM/DD/YYYY');
 
     this.form.get('finishDate')?.setValue(date);
+    this.form.get('finishDate')?.updateValueAndValidity();
+
     this.hasError = false;
   }
 }

@@ -2,7 +2,10 @@
   <h2 class="lead">Task Manager</h2>
   <section class="row">
     <div class="col-4">
-      <button mat-raised-button color="primary" class="w-100 my-2" (click)="onOrder()">Order by category</button>
+      <button mat-raised-button color="primary" class="w-100 my-2" (click)="onOrder()">Order by category
+        <mat-icon *ngIf="up">keyboard_arrow_up</mat-icon>
+        <mat-icon *ngIf="!up">keyboard_arrow_down</mat-icon>
+      </button>
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState === true">
           <mat-expansion-panel-header>
