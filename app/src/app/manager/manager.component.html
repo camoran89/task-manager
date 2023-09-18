@@ -1,1 +1,15 @@
-<p>manager works!</p>
+<article class="container">
+  <section class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-9">
+      <mat-card *ngFor="let task of tasks">
+        <mat-card-header>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+</article>
