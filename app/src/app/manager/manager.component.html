@@ -1,7 +1,7 @@
 <article class="container-fluid py-4">
   <h2 class="lead">Task Manager</h2>
   <section class="row">
-    <div class="col-4">
+    <div class="col-md-4">
       <button mat-raised-button color="primary" class="w-100 my-2" (click)="onOrder()">Order by category
         <mat-icon *ngIf="up">keyboard_arrow_up</mat-icon>
         <mat-icon *ngIf="!up">keyboard_arrow_down</mat-icon>
@@ -9,7 +9,7 @@
       <mat-accordion>
         <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="panelOpenState === true">
           <mat-expansion-panel-header>
-            <mat-panel-title> Add new task </mat-panel-title>
+            <mat-panel-title> Click to add a new task </mat-panel-title>
             <mat-panel-description> You can add a new task </mat-panel-description>
           </mat-expansion-panel-header>
           <h4 class="fw-bolder">Fill the data</h4>
@@ -33,7 +33,7 @@
         </mat-expansion-panel>
       </mat-accordion>
     </div>
-    <div class="col-4">
+    <div class="col-md-4">
       <h2 class="lead">Active</h2>
       <div class="row row-cols-1 g-4">
         <div class="col" *ngFor="let task of utasks">
@@ -72,7 +72,7 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-md-4">
       <h2 class="lead">Completed</h2>
       <div class="row row-cols-1 g-4">
         <div class="col" *ngFor="let task of ctasks">

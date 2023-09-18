@@ -137,8 +137,6 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onReset(): void {
     this.form.reset();
-    this.form.get('finishDate')?.setValue(null);
-    this.form.get('finishDate')?.updateValueAndValidity();
     this.hasError = true;
     this.error.forEach((x, index) => {
       this.error[index].value = true;
