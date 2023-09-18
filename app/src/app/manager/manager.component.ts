@@ -20,7 +20,9 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   hasError: boolean = true;
   panelOpenState: boolean = false;
+  save: boolean = true;
 
+  taskId: string = '';
   finishDateValue: string = '';
 
   error: Array<Object> = new Array<Object>();
@@ -134,6 +136,8 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onReset(): void {
     this.form.reset();
+    this.form.get('finishDate')?.setValue(null);
+    this.form.get('finishDate')?.updateValueAndValidity();
     this.hasError = true;
     this.error.forEach((x, index) => {
       this.error[index].value = true;
@@ -143,7 +147,7 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
   onSave(): void {
     if (!this.hasError) {
       let task: ITask = {
-        id: '',
+        id: this.taskId ? this.taskId : '',
         userName: this.form.get('username')?.value,
         title: this.form.get('title')?.value,
         description: this.form.get('description')?.value,
@@ -153,38 +157,43 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
         createdAt: new Date()
       };
 
-      this.taskService.create(task).subscribe(result => {
-        this.utasks.push(task);
-      });
-
+      if (this.save) {  
+        this.taskService.create(task).subscribe(result => {
+          this.utasks.push(task);
+        });
+      } else {
+        this.taskService.update(task.id, task).subscribe(result => {
+          let pos = this.utasks.findIndex(x => x.id === task.id);
+          this.utasks.splice(pos, 1);
+          this.utasks.push(task);
+        });
+      }
       this.onReset();
+      this.panelOpenState = false;
     }
   }
 
   onError(error: boolean, control: string): void {
-    let found = this.error.findIndex(x => x.key.toLowerCase() === control.toLowerCase());
-    if (found < 0) {
-      this.error.push({ key: control, value: error });
-    } else {
-      this.error[found].value = error;
+    if (this.save) {
+      let found = this.error.findIndex(x => x.key.toLowerCase() === control.toLowerCase());
+      if (found < 0) {
+        this.error.push({ key: control, value: error });
+      } else {
+        this.error[found].value = error;
+      }
+  
+      this.hasError = this.error.find(x => x.value == true) != undefined;
     }
-
-    this.hasError = this.error.find(x => x.value == true) != undefined;
   }
 
   getDate(date: string): void {
     this.finishDateValue = date;
   }
 
-  onDelete(id: string, completed: boolean): void {
+  onDelete(id: string): void {
     this.taskService.delete(id).subscribe(result => {
-      if (!completed) {
-        let pos = this.utasks.findIndex(x => x.id === id);
-        this.utasks.splice(pos, 1);
-      } else {
-        let pos = this.ctasks.findIndex(x => x.id === id);
-        this.ctasks.splice(pos, 1);
-      }
+      let pos = this.utasks.findIndex(x => x.id === id);
+      this.utasks.splice(pos, 1);
     });
   }
 
@@ -202,8 +211,25 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
       return a.category > b.category ? 1 : a.category < b.category ? -1 : 0;
     });
 
-    this.utasks.sort((a, b) => {
+    this.ctasks.sort((a, b) => {
       return a.category > b.category ? 1 : a.category < b.category ? -1 : 0;
     });
+  }
+
+  onUpdate(task: ITask): void {
+    this.save = false;
+    this.panelOpenState = true;
+
+    this.taskId = task.id;
+    
+    this.form.get('username')?.setValue(task.userName);
+    this.form.get('title')?.setValue(task.title);
+    this.form.get('description')?.setValue(task.description);
+    this.form.get('category')?.setValue(task.category);
+
+    let date = moment(task.finishDate).format('MM/DD/YYYY');
+
+    this.form.get('finishDate')?.setValue(date);
+    this.hasError = false;
   }
 }
