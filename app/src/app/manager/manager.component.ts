@@ -165,6 +165,7 @@ export class ManagerComponent implements OnInit, OnDestroy, AfterViewInit {
           let pos = this.utasks.findIndex(x => x.id === task.id);
           this.utasks.splice(pos, 1);
           this.utasks.push(task);
+          this.save = true;
         });
       }
       this.onReset();
